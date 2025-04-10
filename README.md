@@ -22,8 +22,6 @@ fitfuel/
 ├── README.md
 ├── assets/
 │   ├── images/
-│   │   ├── app_logo_dark.png
-│   │   ├── app_logo_white.png
 │   ├── icons/
 │   ├── fonts/
 ├── lib/
