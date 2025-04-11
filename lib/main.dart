@@ -1,3 +1,5 @@
+import 'package:fitfuel/features/login/login.dart';
+import 'package:fitfuel/features/signup/signup.dart' show Signup;
 import 'package:flutter/material.dart';
 import 'features/onboarding/onboarding.dart';
 
@@ -14,6 +16,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/onboarding',
       routes: {
         '/onboarding': (context) => OnBoarding(),
+        '/login': (context) => const Login(),
+        '/signup': (context) => const Signup(),
         '/home': (context) => const HomeScreen(),
       },
     );

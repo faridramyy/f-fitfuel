@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 
 class OnBoarding extends StatelessWidget {
   const OnBoarding({super.key});
@@ -11,12 +12,15 @@ class OnBoarding extends StatelessWidget {
       home: OnBoardingSlider(
         centerBackground: true,
         headerBackgroundColor: Colors.black,
-        finishButtonText: 'Register',
+        finishButtonText: '',
         finishButtonStyle: FinishButtonStyle(
           backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         ),
         skipTextButton: Text('Skip', style: TextStyle(color: Colors.white)),
         trailing: Text('Login', style: TextStyle(color: Colors.white)),
+        trailingFunction: () {
+          Navigator.pushNamed(context, '/login');
+        },
         background: [
           Image.asset('assets/images/onboarding/img5 (1).png'),
           Image.asset('assets/images/onboarding/img3 (1).png'),
@@ -95,7 +99,37 @@ class OnBoarding extends StatelessWidget {
               ],
             ),
           ),
-          Container(padding: EdgeInsets.symmetric(horizontal: 40)),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                SignInButton(
+                  Buttons.google,
+                  text: "Sign up with Google",
+                  onPressed: () {},
+                ),
+                SignInButton(
+                  Buttons.facebook,
+                  text: "Sign up with Facebook",
+                  onPressed: () {},
+                ),
+                SignInButton(
+                  Buttons.apple,
+                  text: "Sign up with Apple",
+                  onPressed: () {},
+                ),
+                SignInButton(
+                  Buttons.email,
+                  text: "Sign up with Email",
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/signup');
+                  },
+                ),
+                SizedBox(height: 70),
+              ],
+            ),
+          ),
         ],
       ),
     );
