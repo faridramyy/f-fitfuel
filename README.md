@@ -22,49 +22,30 @@ fitfuel/
 ├── README.md
 ├── assets/
 │   ├── images/
+│   │   ├── app_logo_dark.png
+│   │   ├── app_logo_dark_removebg.png
+│   │   ├── app_logo_white.png
+│   │   ├── app_logo_white_removebg.png
+│   │   └── onboarding/
 │   ├── icons/
-│   ├── fonts/
+│   └── fonts/
+│       ├── Sigmar-Regular.ttf
+│       └── SpecialGothicExpandedOne-Regular.ttf
 ├── lib/
 │   ├── main.dart
-│   ├── core/
-│   │   ├── constants/
-│   │   │   ├── app_colors.dart
-│   │   │   ├── app_strings.dart
-│   │   ├── utils/
-│   │   │   ├── validators.dart
-│   │   │   ├── extensions.dart
-│   │   ├── widgets/
-│   │   │   ├── custom_button.dart
-│   │   │   ├── custom_text_field.dart
-│   ├── features/
-│   │   ├── home/
-│   │   │   ├── widgets/
-│   │   │   │   ├── home_card.dart
-│   │   │   ├── models/
-│   │   │   │   ├── home_model.dart
-│   │   │   ├── services/
-│   │   │   │   ├── home_service.dart
-│   │   │   ├── home_page.dart
-│   │   ├── profile/
-│   │   │   ├── widgets/
-│   │   │   │   ├── profile_avatar.dart
-│   │   │   ├── models/
-│   │   │   │   ├── user_model.dart
-│   │   │   ├── services/
-│   │   │   │   ├── profile_service.dart
-│   │   │   ├── profile_page.dart
-│   ├── shared/
-│   │   ├── themes/
-│   │   │   ├── app_theme.dart
-│   │   ├── localization/
-│   │   │   ├── app_localizations.dart
+│   ├── config/
+│   │   └── theme/
+│   └── features/
+│       ├── login/
+│       ├── onboarding/
+│       └── signup/
 ├── test/
 ├── android/
 ├── ios/
 ├── linux/
 ├── macos/
 ├── web/
-├── windows/
+└── windows/
 ```
 
 ## Getting Started

@@ -10,6 +10,7 @@ class OnBoarding extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoApp(
       home: OnBoardingSlider(
+        pageBackgroundColor: Colors.black,
         centerBackground: true,
         headerBackgroundColor: Colors.black,
         finishButtonText: '',

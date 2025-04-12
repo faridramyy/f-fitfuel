@@ -1,3 +1,4 @@
+import 'package:fitfuel/config/theme/theme_config.dart';
 import 'package:fitfuel/features/login/login.dart';
 import 'package:fitfuel/features/signup/signup.dart' show Signup;
 import 'package:flutter/material.dart';
@@ -13,25 +14,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
       initialRoute: '/onboarding',
       routes: {
         '/onboarding': (context) => OnBoarding(),
         '/login': (context) => const Login(),
         '/signup': (context) => const Signup(),
-        '/home': (context) => const HomeScreen(),
       },
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('MyApp')),
-      body: const Center(child: Text('Hello, World!')),
     );
   }
 }
