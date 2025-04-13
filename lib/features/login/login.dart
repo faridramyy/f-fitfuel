@@ -117,7 +117,7 @@ class _LoginState extends State<Login> {
                     Text(
                       'Don\'t have an account?',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                     TextButton(

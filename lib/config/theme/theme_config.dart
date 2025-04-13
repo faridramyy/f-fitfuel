@@ -26,6 +26,13 @@ class AppTheme {
         padding: const EdgeInsets.symmetric(vertical: 16),
       ),
     ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Colors.white,
+      selectedItemColor: Colors.blue,
+      unselectedItemColor: Colors.grey,
+      elevation: 8,
+    ),
+
     inputDecorationTheme: InputDecorationTheme(
       fillColor: Colors.grey[100],
       filled: true,
@@ -70,6 +77,12 @@ class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(vertical: 16),
       ),
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Colors.black,
+      selectedItemColor: Colors.blue,
+      unselectedItemColor: Colors.grey,
+      elevation: 8,
     ),
     inputDecorationTheme: InputDecorationTheme(
       fillColor: Colors.grey[900],
