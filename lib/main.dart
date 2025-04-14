@@ -3,7 +3,7 @@ import 'package:fitfuel/features/ai_trainer/ai_trainer.dart';
 import 'package:fitfuel/features/login/login.dart';
 import 'package:fitfuel/features/meals/meals.dart';
 import 'package:fitfuel/features/profile/profile.dart';
-import 'package:fitfuel/features/signup/signup.dart' show Signup;
+import 'package:fitfuel/features/signup/signup.dart';
 import 'package:fitfuel/features/workouts/workouts.dart';
 import 'package:flutter/material.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
