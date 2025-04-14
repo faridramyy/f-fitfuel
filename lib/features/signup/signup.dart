@@ -1,3 +1,4 @@
+import 'package:fitfuel/config/theme/theme_config.dart';
 import 'package:flutter/material.dart';
 
 class Signup extends StatefulWidget {
@@ -131,9 +132,18 @@ class _SignupState extends State<Signup> {
                         Navigator.pushNamed(context, '/home');
                       }
                     },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(AppTheme.defaultPadding),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                    ),
                     child: const Text(
                       'Sign Up',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(
+                        fontSize: AppTheme.mediumFontSize,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),

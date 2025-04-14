@@ -1,3 +1,4 @@
+import 'package:fitfuel/config/theme/theme_config.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -106,7 +107,19 @@ class _LoginState extends State<Login> {
                         Navigator.pushNamed(context, '/home');
                       }
                     },
-                    child: const Text('Login', style: TextStyle(fontSize: 16)),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(AppTheme.defaultPadding),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: AppTheme.mediumFontSize,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),

@@ -4,7 +4,7 @@ import 'package:fitfuel/features/login/login.dart';
 import 'package:fitfuel/features/meals/meals.dart';
 import 'package:fitfuel/features/profile/profile.dart';
 import 'package:fitfuel/features/signup/signup.dart' show Signup;
-import 'package:fitfuel/features/workouts/workouts_demo.dart';
+import 'package:fitfuel/features/workouts/workouts.dart';
 import 'package:flutter/material.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 import 'features/onboarding/onboarding.dart';
@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.dark,
       initialRoute: '/',
       routes: {
         '/': (context) => const MainNavigationScreen(),
@@ -44,7 +44,13 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int selected = 0;
   final PageController controller = PageController();
 
-  final List<Widget> _pages = [AiTrainer(), Workouts(), Meals(), Profile()];
+  final List<Widget> _pages = [
+    AiTrainer(),
+    Workouts(),
+    Meals(),
+    Profile(),
+    Signup(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +86,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           BottomBarItem(
             icon: const Icon(Icons.person_outline),
             title: const Text('Profile'),
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+          BottomBarItem(
+            icon: const Icon(Icons.sign_language),
+            title: const Text('Signin'),
             backgroundColor: Theme.of(context).primaryColor,
           ),
         ],
