@@ -44,13 +44,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int selected = 0;
   final PageController controller = PageController();
 
-  final List<Widget> _pages = [
-    AiTrainer(),
-    Workouts(),
-    Meals(),
-    Profile(),
-    Signup(),
-  ];
+  final List<Widget> _pages = [AiTrainer(), Workouts(), Meals(), Profile()];
 
   @override
   Widget build(BuildContext context) {
@@ -86,11 +80,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           BottomBarItem(
             icon: const Icon(Icons.person_outline),
             title: const Text('Profile'),
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-          BottomBarItem(
-            icon: const Icon(Icons.sign_language),
-            title: const Text('Signin'),
             backgroundColor: Theme.of(context).primaryColor,
           ),
         ],

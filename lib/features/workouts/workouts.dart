@@ -1,5 +1,7 @@
 import 'package:fitfuel/config/theme/theme_config.dart';
+import 'package:fitfuel/features/workouts/explore.dart';
 import 'package:flutter/material.dart';
+import 'package:fitfuel/features/workouts/new_routine.dart';
 
 class Workouts extends StatelessWidget {
   const Workouts({super.key});
@@ -72,7 +74,18 @@ class Workouts extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) {
+                            return FractionallySizedBox(
+                              heightFactor: 0.9,
+                              child: const NewRoutine(),
+                            );
+                          },
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(AppTheme.defaultPadding),
                         backgroundColor:
@@ -102,7 +115,36 @@ class Workouts extends StatelessWidget {
                   const SizedBox(width: AppTheme.defaultPadding),
                   Expanded(
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    const Explore(),
+                            transitionsBuilder: (
+                              context,
+                              animation,
+                              secondaryAnimation,
+                              child,
+                            ) {
+                              const begin = Offset(1.0, 0.0);
+                              const end = Offset.zero;
+                              const curve = Curves.ease;
+
+                              var tween = Tween(
+                                begin: begin,
+                                end: end,
+                              ).chain(CurveTween(curve: curve));
+                              var offsetAnimation = animation.drive(tween);
+
+                              return SlideTransition(
+                                position: offsetAnimation,
+                                child: child,
+                              );
+                            },
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(AppTheme.defaultPadding),
                         backgroundColor:
