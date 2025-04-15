@@ -12,10 +12,10 @@ class Exercise {
   final List<String> instructions;
 
   Exercise({
-    required this.name,
-    required this.bodyPart,
-    required this.equipment,
     required this.gifUrl,
+    required this.name,
+    required this.equipment,
+    required this.bodyPart,
     required this.instructions,
   });
 
@@ -39,6 +39,7 @@ class ExercisesList extends StatefulWidget {
 
 class _ExercisesListState extends State<ExercisesList> {
   late Future<List<Exercise>> exercises;
+  Set<int> selectedIndices = Set<int>(); // Track selected exercises
 
   @override
   void initState() {
@@ -57,7 +58,6 @@ class _ExercisesListState extends State<ExercisesList> {
     );
 
     if (response.statusCode == 200) {
-      // Parse the response body
       List<dynamic> data = jsonDecode(response.body);
       return data.map((json) => Exercise.fromJson(json)).toList();
     } else {
@@ -105,7 +105,7 @@ class _ExercisesListState extends State<ExercisesList> {
             padding: const EdgeInsets.only(right: 8),
             child: TextButton(
               onPressed: () {
-                // Handle create action
+                // Handle create action for selected exercises
               },
               child: Text(
                 "Create",
@@ -126,102 +126,124 @@ class _ExercisesListState extends State<ExercisesList> {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (snapshot.hasData) {
-            // If data is available, display it in a ListView
             List<Exercise> exerciseList = snapshot.data!;
             return ListView.builder(
               itemCount: exerciseList.length,
               itemBuilder: (context, index) {
                 Exercise exercise = exerciseList[index];
-                return Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withAlpha(50),
-                        width: 1,
+                bool isSelected = selectedIndices.contains(
+                  index,
+                ); // Check if exercise is selected
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if (isSelected) {
+                        selectedIndices.remove(
+                          index,
+                        ); // Deselect if already selected
+                      } else {
+                        selectedIndices.add(
+                          index,
+                        ); // Select if not already selected
+                      }
+                    });
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withAlpha(50),
+                          width: 1,
+                        ),
+                        left:
+                            isSelected
+                                ? BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 5,
+                                )
+                                : BorderSide.none,
                       ),
                     ),
-                  ),
-                  padding: const EdgeInsets.all(AppTheme.defaultPadding),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          ClipOval(
-                            child: Image.network(
-                              exercise.gifUrl,
-                              width: 65,
-                              height: 65,
-                              fit: BoxFit.cover,
+                    padding: const EdgeInsets.all(AppTheme.defaultPadding),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            ClipOval(
+                              child: Image.network(
+                                exercise.gifUrl,
+                                width: 65,
+                                height: 65,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: AppTheme.defaultPadding),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 2,
-                                child: Text(
-                                  toTitleCase(exercise.name),
-                                  style: const TextStyle(
-                                    fontSize: AppTheme.largeFontSize,
-                                    fontWeight: FontWeight.w500,
+                            const SizedBox(width: AppTheme.defaultPadding),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  child: Text(
+                                    toTitleCase(exercise.name),
+                                    style: const TextStyle(
+                                      fontSize: AppTheme.largeFontSize,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
                                 ),
-                              ),
-                              const SizedBox(
-                                height: AppTheme.defaultPadding / 4,
-                              ),
-                              Text(
-                                toTitleCase(exercise.bodyPart),
-                                style: TextStyle(
-                                  fontSize: AppTheme.mediumFontSize,
-                                  color: Colors.grey,
+                                const SizedBox(
+                                  height: AppTheme.defaultPadding / 4,
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-
-                      IconButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      ExerciseDetails(exercise: exercise),
-                              transitionsBuilder: (
-                                context,
-                                animation,
-                                secondaryAnimation,
-                                child,
-                              ) {
-                                const begin = Offset(1.0, 0.0);
-                                const end = Offset.zero;
-                                const curve = Curves.ease;
-                                var tween = Tween(
-                                  begin: begin,
-                                  end: end,
-                                ).chain(CurveTween(curve: curve));
-                                var offsetAnimation = animation.drive(tween);
-                                return SlideTransition(
-                                  position: offsetAnimation,
-                                  child: child,
-                                );
-                              },
+                                Text(
+                                  toTitleCase(exercise.bodyPart),
+                                  style: TextStyle(
+                                    fontSize: AppTheme.mediumFontSize,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
                             ),
-                          );
-                        },
-
-                        icon: const Icon(Icons.mode_standby_rounded),
-                      ),
-                    ],
+                          ],
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        ExerciseDetails(exercise: exercise),
+                                transitionsBuilder: (
+                                  context,
+                                  animation,
+                                  secondaryAnimation,
+                                  child,
+                                ) {
+                                  const begin = Offset(1.0, 0.0);
+                                  const end = Offset.zero;
+                                  const curve = Curves.ease;
+                                  var tween = Tween(
+                                    begin: begin,
+                                    end: end,
+                                  ).chain(CurveTween(curve: curve));
+                                  var offsetAnimation = animation.drive(tween);
+                                  return SlideTransition(
+                                    position: offsetAnimation,
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.mode_standby_rounded),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -231,6 +253,24 @@ class _ExercisesListState extends State<ExercisesList> {
           }
         },
       ),
+      floatingActionButton:
+          selectedIndices.isNotEmpty
+              ? Container(
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    backgroundColor: Theme.of(context).primaryColor,
+                  ),
+                  child: Text(
+                    "+ Add ${selectedIndices.length} ${selectedIndices.length == 1 ? 'Exercise' : 'Exercises'}",
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ),
+              )
+              : null,
     );
   }
 }
