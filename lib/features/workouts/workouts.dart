@@ -1,5 +1,6 @@
 import 'package:fitfuel/config/theme/theme_config.dart';
 import 'package:fitfuel/features/workouts/explore.dart';
+import 'package:fitfuel/features/workouts/log_workout.dart';
 import 'package:flutter/material.dart';
 import 'package:fitfuel/features/workouts/new_routine.dart';
 
@@ -164,6 +165,9 @@ class Workouts extends StatelessWidget {
                           fontSize: AppTheme.largeFontSize,
                           fontWeight: FontWeight.w500,
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: false,
                       ),
                     ),
                   ),
@@ -230,7 +234,36 @@ class Workouts extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    const LogWorkout(),
+                            transitionsBuilder: (
+                              context,
+                              animation,
+                              secondaryAnimation,
+                              child,
+                            ) {
+                              const begin = Offset(0.0, 1.0);
+                              const end = Offset.zero;
+                              const curve = Curves.ease;
+
+                              var tween = Tween(
+                                begin: begin,
+                                end: end,
+                              ).chain(CurveTween(curve: curve));
+                              var offsetAnimation = animation.drive(tween);
+
+                              return SlideTransition(
+                                position: offsetAnimation,
+                                child: child,
+                              );
+                            },
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(AppTheme.defaultPadding),
                         backgroundColor: Theme.of(context).colorScheme.primary,

@@ -39,7 +39,7 @@ class ExercisesList extends StatefulWidget {
 
 class _ExercisesListState extends State<ExercisesList> {
   late Future<List<Exercise>> exercises;
-  Set<int> selectedIndices = Set<int>(); // Track selected exercises
+  Set<int> selectedIndices = <int>{}; // Track selected exercises
 
   @override
   void initState() {
