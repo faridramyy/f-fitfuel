@@ -33,8 +33,7 @@ class Workouts extends StatelessWidget {
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.all(AppTheme.defaultPadding),
-                  backgroundColor:
-                      Theme.of(context).colorScheme.outlineVariant,
+                  backgroundColor: Theme.of(context).colorScheme.outlineVariant,
                   foregroundColor: Colors.white,
                   alignment: Alignment.centerLeft,
                 ),
@@ -55,7 +54,7 @@ class Workouts extends StatelessWidget {
                 ),
               ),
             ),
-      
+
             const SizedBox(height: AppTheme.defaultPadding),
             SizedBox(
               width: double.infinity,
@@ -101,12 +100,13 @@ class Workouts extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         'New Routine',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.labelLarge?.copyWith(
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           fontSize: AppTheme.largeFontSize,
                           fontWeight: FontWeight.w500,
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: false,
                       ),
                     ),
                   ),
@@ -129,13 +129,13 @@ class Workouts extends StatelessWidget {
                             const begin = Offset(1.0, 0.0);
                             const end = Offset.zero;
                             const curve = Curves.ease;
-      
+
                             var tween = Tween(
                               begin: begin,
                               end: end,
                             ).chain(CurveTween(curve: curve));
                             var offsetAnimation = animation.drive(tween);
-      
+
                             return SlideTransition(
                               position: offsetAnimation,
                               child: child,
@@ -160,9 +160,7 @@ class Workouts extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         'Explore',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.labelLarge?.copyWith(
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           fontSize: AppTheme.largeFontSize,
                           fontWeight: FontWeight.w500,
                         ),
@@ -185,7 +183,7 @@ class Workouts extends StatelessWidget {
                 textAlign: TextAlign.start,
               ),
             ),
-      
+
             const SizedBox(height: AppTheme.defaultPadding),
             Container(
               decoration: BoxDecoration(
@@ -206,9 +204,7 @@ class Workouts extends StatelessWidget {
                     children: [
                       Text(
                         "Upper-Body",
-                        style: Theme.of(
-                          context,
-                        ).textTheme.labelLarge?.copyWith(
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           fontSize: AppTheme.largeFontSize,
                           fontWeight: FontWeight.bold,
                         ),
@@ -237,8 +233,7 @@ class Workouts extends StatelessWidget {
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(AppTheme.defaultPadding),
-                        backgroundColor:
-                            Theme.of(context).colorScheme.primary,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
                         foregroundColor:
                             Theme.of(context).colorScheme.onPrimary,
                         textStyle: Theme.of(context).textTheme.labelLarge,

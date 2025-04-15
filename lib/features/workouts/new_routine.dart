@@ -30,7 +30,7 @@ class _NewRoutineState extends State<NewRoutine> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.cancel),
+            icon: const Icon(Icons.close),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -73,13 +73,13 @@ class _NewRoutineState extends State<NewRoutine> {
                           const begin = Offset(0.0, 1.0);
                           const end = Offset.zero;
                           const curve = Curves.ease;
-      
+
                           var tween = Tween(
                             begin: begin,
                             end: end,
                           ).chain(CurveTween(curve: curve));
                           var offsetAnimation = animation.drive(tween);
-      
+
                           return SlideTransition(
                             position: offsetAnimation,
                             child: child,
