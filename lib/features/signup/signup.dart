@@ -1,4 +1,4 @@
-import 'package:fitfuel/config/theme/theme_config.dart';
+import 'package:fitfuel/theme/theme_config.dart';
 import 'package:flutter/material.dart';
 
 class Signup extends StatefulWidget {
@@ -28,18 +28,18 @@ class _SignupState extends State<Signup> {
     return Scaffold(
       appBar: AppBar(title: const Text('Sign Up')),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(AppTheme.largePadding),
         child: Form(
           key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 40),
+              const SizedBox(height: AppTheme.largePadding),
               // Logo
               Image.asset(
                 Theme.of(context).brightness == Brightness.dark
                     ? 'assets/images/app_logo_dark_removebg.png'
-                    : 'assets/images/app_logo_white_removebg.png',
+                    : 'assets/images/app_logo_light_removebg.png',
                 height: 120,
               ),
               const SizedBox(height: 48),
@@ -59,7 +59,7 @@ class _SignupState extends State<Signup> {
                   return null;
                 },
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppTheme.defaultPadding),
               // Password field
               TextFormField(
                 controller: _passwordController,
@@ -88,7 +88,8 @@ class _SignupState extends State<Signup> {
                   return null;
                 },
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppTheme.defaultPadding),
+
               // Confirm Password field
               TextFormField(
                 controller: _confirmPasswordController,
@@ -120,7 +121,8 @@ class _SignupState extends State<Signup> {
                   return null;
                 },
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: AppTheme.largePadding),
+
               // Sign Up button
               SizedBox(
                 width: double.infinity,
@@ -134,7 +136,6 @@ class _SignupState extends State<Signup> {
                     padding: EdgeInsets.all(AppTheme.defaultPadding),
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                    textStyle: Theme.of(context).textTheme.labelLarge,
                   ),
                   child: const Text(
                     'Sign Up',
@@ -145,17 +146,15 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+            
+            
+              const SizedBox(height: AppTheme.defaultPadding),
+
               // Login link
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Already have an account?',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                  ),
+                  Text('Already have an account?'),
                   TextButton(
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, '/login');

@@ -1,4 +1,4 @@
-import 'package:fitfuel/config/theme/theme_config.dart';
+import 'package:fitfuel/theme/theme_config.dart';
 import 'package:fitfuel/features/workouts/explore.dart';
 import 'package:fitfuel/features/workouts/log_workout.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class Workouts extends StatelessWidget {
               child: Text(
                 'Quick Start',
                 style: TextStyle(
-                  fontSize: AppTheme.xlargeFontSize,
+                  fontSize: AppTheme.xLargeFontSize,
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.start,
@@ -34,14 +34,13 @@ class Workouts extends StatelessWidget {
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.all(AppTheme.defaultPadding),
-                  backgroundColor: Theme.of(context).colorScheme.outlineVariant,
-                  foregroundColor: Colors.white,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   alignment: Alignment.centerLeft,
                 ),
                 icon: Icon(
                   Icons.add,
                   color: Theme.of(context).colorScheme.onSecondary,
-                  size: AppTheme.xlargeFontSize,
+                  size: AppTheme.xLargeFontSize,
                 ),
                 label: Align(
                   alignment: Alignment.centerLeft,
@@ -62,7 +61,7 @@ class Workouts extends StatelessWidget {
               child: Text(
                 'Routines',
                 style: TextStyle(
-                  fontSize: AppTheme.xlargeFontSize,
+                  fontSize: AppTheme.xLargeFontSize,
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.start,
@@ -87,15 +86,13 @@ class Workouts extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.all(AppTheme.defaultPadding),
-                      backgroundColor:
-                          Theme.of(context).colorScheme.outlineVariant,
-                      foregroundColor: Colors.white,
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
                       alignment: Alignment.centerLeft,
                     ),
                     icon: Icon(
                       Icons.list_alt,
                       color: Theme.of(context).colorScheme.onSecondary,
-                      size: AppTheme.xlargeFontSize,
+                      size: AppTheme.xLargeFontSize,
                     ),
                     label: Align(
                       alignment: Alignment.centerLeft,
@@ -147,15 +144,13 @@ class Workouts extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.all(AppTheme.defaultPadding),
-                      backgroundColor:
-                          Theme.of(context).colorScheme.outlineVariant,
-                      foregroundColor: Colors.white,
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
                       alignment: Alignment.centerLeft,
                     ),
                     icon: Icon(
                       Icons.search,
                       color: Theme.of(context).colorScheme.onSecondary,
-                      size: AppTheme.xlargeFontSize,
+                      size: AppTheme.xLargeFontSize,
                     ),
                     label: Align(
                       alignment: Alignment.centerLeft,
@@ -180,7 +175,7 @@ class Workouts extends StatelessWidget {
               child: Text(
                 'My Routines (3)',
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.outline,
+                  color: Colors.grey,
                   fontSize: AppTheme.mediumFontSize,
                   fontWeight: FontWeight.bold,
                 ),
@@ -191,7 +186,7 @@ class Workouts extends StatelessWidget {
             const SizedBox(height: AppTheme.defaultPadding),
             Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.outlineVariant,
+                color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(
                   AppTheme.defaultBorderRadius,
                 ),
@@ -226,9 +221,7 @@ class Workouts extends StatelessWidget {
                     "Eu ut anim Lorem aute laborum id consequat sunt laborum cillum qui. Enim ut elit ad nisi nulla magna dolor qui sit id commodo officia...",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                    style: TextStyle(color: Colors.grey),
                   ),
                   const SizedBox(height: AppTheme.defaultPadding),
                   SizedBox(

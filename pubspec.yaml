@@ -70,8 +70,19 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/exercises.json
     - assets/images/
     - assets/images/onboarding/
+    - assets/images/workouts/back/
+    - assets/images/workouts/cardio/
+    - assets/images/workouts/chest/
+    - assets/images/workouts/lower_arms/
+    - assets/images/workouts/lower_legs/
+    - assets/images/workouts/neck/
+    - assets/images/workouts/shoulders/
+    - assets/images/workouts/upper_arms/
+    - assets/images/workouts/upper_legs/
+    - assets/images/workouts/waist/
     - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see

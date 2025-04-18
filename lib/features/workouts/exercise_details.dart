@@ -1,4 +1,4 @@
-import 'package:fitfuel/config/theme/theme_config.dart';
+import 'package:fitfuel/theme/theme_config.dart';
 import 'package:flutter/material.dart';
 import 'package:fitfuel/features/workouts/exercises_list.dart'; // adjust import if needed
 
@@ -46,7 +46,7 @@ class ExerciseDetails extends StatelessWidget {
                     Container(
                       color: Colors.white, // background color
                       width: double.infinity,
-                      child: Image.network(
+                      child: Image.asset(
                         exercise.gifUrl,
                         height: MediaQuery.of(context).size.height * 0.25,
                         width: double.infinity,
@@ -60,7 +60,7 @@ class ExerciseDetails extends StatelessWidget {
                           Text(
                             toTitleCase(exercise.name),
                             style: TextStyle(
-                              fontSize: AppTheme.xlargeFontSize,
+                              fontSize: AppTheme.xLargeFontSize,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -414,7 +414,7 @@ class ExerciseDetails extends StatelessWidget {
                         Text(
                           toTitleCase(exercise.name),
                           style: TextStyle(
-                            fontSize: AppTheme.xlargeFontSize,
+                            fontSize: AppTheme.xLargeFontSize,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

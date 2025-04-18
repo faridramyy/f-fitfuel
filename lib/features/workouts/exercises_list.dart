@@ -1,8 +1,9 @@
 import 'dart:convert';
-import 'package:fitfuel/config/theme/theme_config.dart';
+import 'package:fitfuel/theme/theme_config.dart';
 import 'package:fitfuel/features/workouts/exercise_details.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart' show rootBundle;
 
 class Exercise {
   final String name;
@@ -48,21 +49,11 @@ class _ExercisesListState extends State<ExercisesList> {
   }
 
   Future<List<Exercise>> fetchExercises() async {
-    final response = await http.get(
-      Uri.parse('https://exercisedb.p.rapidapi.com/exercises'),
-      headers: {
-        'X-Rapidapi-Key': 'b7b30e6c2amsha53d1b744e3b589p1cebc2jsn71af7881d7e1',
-        'X-Rapidapi-Host': 'exercisedb.p.rapidapi.com',
-        'Host': 'exercisedb.p.rapidapi.com',
-      },
+    final String response = await rootBundle.loadString(
+      'assets/exercises.json',
     );
-
-    if (response.statusCode == 200) {
-      List<dynamic> data = jsonDecode(response.body);
-      return data.map((json) => Exercise.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to load exercises');
-    }
+    final List<dynamic> data = json.decode(response);
+    return data.map((json) => Exercise.fromJson(json)).toList();
   }
 
   String toTitleCase(String text) {
@@ -81,6 +72,7 @@ class _ExercisesListState extends State<ExercisesList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
         leadingWidth: 80,
         leading: Padding(
@@ -93,12 +85,15 @@ class _ExercisesListState extends State<ExercisesList> {
               "Cancel",
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                fontSize: 14,
+                fontSize: AppTheme.mediumFontSize,
               ),
             ),
           ),
         ),
-        title: const Text("Add Exercises", style: TextStyle(fontSize: 18)),
+        title: const Text(
+          "Add Exercises",
+          style: TextStyle(fontSize: AppTheme.largeFontSize),
+        ),
         centerTitle: true,
         actions: [
           Padding(
@@ -111,7 +106,7 @@ class _ExercisesListState extends State<ExercisesList> {
                 "Create",
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
-                  fontSize: 14,
+                  fontSize: AppTheme.mediumFontSize,
                 ),
               ),
             ),
@@ -173,7 +168,7 @@ class _ExercisesListState extends State<ExercisesList> {
                         Row(
                           children: [
                             ClipOval(
-                              child: Image.network(
+                              child: Image.asset(
                                 exercise.gifUrl,
                                 width: 65,
                                 height: 65,
@@ -197,9 +192,7 @@ class _ExercisesListState extends State<ExercisesList> {
                                     maxLines: 1,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: AppTheme.defaultPadding / 4,
-                                ),
+                                const SizedBox(height: AppTheme.smallPadding),
                                 Text(
                                   toTitleCase(exercise.bodyPart),
                                   style: TextStyle(
@@ -253,20 +246,26 @@ class _ExercisesListState extends State<ExercisesList> {
           }
         },
       ),
-      floatingActionButton:
+
+      bottomNavigationBar:
           selectedIndices.isNotEmpty
               ? Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.all(16.0),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    backgroundColor: Theme.of(context).primaryColor,
+                padding: const EdgeInsets.all(AppTheme.largePadding),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(
+                    AppTheme.defaultBorderRadius,
                   ),
-                  child: Text(
-                    "+ Add ${selectedIndices.length} ${selectedIndices.length == 1 ? 'Exercise' : 'Exercises'}",
-                    style: const TextStyle(fontSize: 16, color: Colors.white),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(AppTheme.defaultPadding),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    child: Text(
+                      "+ Add ${selectedIndices.length} ${selectedIndices.length == 1 ? 'Exercise' : 'Exercises'}",
+                      style: const TextStyle(fontSize: AppTheme.mediumFontSize),
+                    ),
                   ),
                 ),
               )

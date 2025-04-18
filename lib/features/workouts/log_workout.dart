@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:fitfuel/config/theme/theme_config.dart';
+import 'package:fitfuel/theme/theme_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -14,7 +14,7 @@ class _LogWorkoutState extends State<LogWorkout> {
   late Timer _timer;
   Duration _elapsed = Duration.zero;
 
-  List<ExerciseData> _exercises = [
+  final List<ExerciseData> _exercises = [
     ExerciseData(
       name: "Exercise Name",
       notes: "",
@@ -137,7 +137,7 @@ class _LogWorkoutState extends State<LogWorkout> {
                         ),
                       ),
                       Text(
-                        _calculateTotalVolume().toString() + " KG",
+                        "${_calculateTotalVolume()} KG",
                         style: TextStyle(fontSize: AppTheme.mediumFontSize),
                       ),
                     ],
@@ -247,7 +247,7 @@ class _LogWorkoutState extends State<LogWorkout> {
                 children: [
                   ClipOval(
                     child: Image.asset(
-                      "assets/images/app_logo_white.png",
+                      "assets/images/app_logo_light.png",
                       width: 50,
                       height: 50,
                       fit: BoxFit.cover,
@@ -294,7 +294,7 @@ class _LogWorkoutState extends State<LogWorkout> {
             icon: Icon(
               Icons.alarm,
               color: Theme.of(context).colorScheme.primary,
-              size: AppTheme.xlargeFontSize,
+              size: AppTheme.xLargeFontSize,
             ),
             label: Text(
               'Rest Time : ${exerciseData.restTime}',
@@ -515,7 +515,7 @@ class _LogWorkoutState extends State<LogWorkout> {
                 ),
               ),
             );
-          }).toList(),
+          }),
           Align(
             alignment: Alignment.center,
             child: SizedBox(

@@ -1,4 +1,4 @@
-import 'package:fitfuel/config/theme/theme_config.dart';
+import 'package:fitfuel/theme/theme_config.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -25,18 +25,18 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(AppTheme.largePadding),
         child: Form(
           key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 40),
+              const SizedBox(height: AppTheme.largePadding),
               // Logo
               Image.asset(
                 Theme.of(context).brightness == Brightness.dark
                     ? 'assets/images/app_logo_dark_removebg.png'
-                    : 'assets/images/app_logo_white_removebg.png',
+                    : 'assets/images/app_logo_light_removebg.png',
                 height: 120,
               ),
               const SizedBox(height: 48),
@@ -56,7 +56,7 @@ class _LoginState extends State<Login> {
                   return null;
                 },
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppTheme.defaultPadding),
               // Password field
               TextFormField(
                 controller: _passwordController,
@@ -85,18 +85,16 @@ class _LoginState extends State<Login> {
                   return null;
                 },
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppTheme.defaultPadding),
               // Forgot password
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {
-                    // TODO: Implement forgot password
-                  },
+                  onPressed: () {},
                   child: const Text('Forgot Password?'),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: AppTheme.defaultPadding),
               // Login button
               SizedBox(
                 width: double.infinity,
@@ -110,7 +108,6 @@ class _LoginState extends State<Login> {
                     padding: EdgeInsets.all(AppTheme.defaultPadding),
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                    textStyle: Theme.of(context).textTheme.labelLarge,
                   ),
                   child: const Text(
                     'Login',
@@ -121,17 +118,12 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppTheme.defaultPadding),
               // Sign up link
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Don\'t have an account?',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                  ),
+                  Text('Don\'t have an account?'),
                   TextButton(
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, '/signup');

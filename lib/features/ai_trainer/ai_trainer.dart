@@ -1,3 +1,4 @@
+import 'package:fitfuel/theme/theme_config.dart';
 import 'package:flutter/material.dart';
 
 class AiTrainer extends StatefulWidget {
@@ -41,17 +42,15 @@ class _AiTrainerState extends State<AiTrainer> {
           message['isUser'] ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-        padding: EdgeInsets.all(12),
+        padding: EdgeInsets.all(AppTheme.defaultPadding),
         decoration: BoxDecoration(
-          color: message['isUser'] ? Colors.blueAccent : Colors.grey.shade300,
-          borderRadius: BorderRadius.circular(12),
+          color:
+              message['isUser']
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.secondary,
+          borderRadius: BorderRadius.circular(AppTheme.defaultBorderRadius),
         ),
-        child: Text(
-          message['text'],
-          style: TextStyle(
-            color: message['isUser'] ? Colors.white : Colors.black,
-          ),
-        ),
+        child: Text(message['text']),
       ),
     );
   }
@@ -64,28 +63,21 @@ class _AiTrainerState extends State<AiTrainer> {
         children: [
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.only(top: 12),
               itemCount: _messages.length,
               itemBuilder: (context, index) => _buildMessage(_messages[index]),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      hintText: 'Type a message...',
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                    ),
-                    onSubmitted: (_) => _sendMessage(),
-                  ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _controller,
+                  decoration: InputDecoration(hintText: 'Type a message...'),
+                  onSubmitted: (_) => _sendMessage(),
                 ),
-                IconButton(icon: Icon(Icons.send), onPressed: _sendMessage),
-              ],
-            ),
+              ),
+              IconButton(icon: Icon(Icons.send), onPressed: _sendMessage),
+            ],
           ),
         ],
       ),

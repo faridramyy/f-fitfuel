@@ -1,4 +1,4 @@
-import 'package:fitfuel/config/theme/theme_config.dart';
+import 'package:fitfuel/theme/theme_config.dart';
 import 'package:flutter/material.dart';
 import 'package:fitfuel/features/workouts/exercises_list.dart';
 
@@ -46,7 +46,7 @@ class _NewRoutineState extends State<NewRoutine> {
               Image.asset(
                 Theme.of(context).brightness == Brightness.dark
                     ? 'assets/images/app_logo_dark_removebg.png'
-                    : 'assets/images/app_logo_white_removebg.png',
+                    : 'assets/images/app_logo_light_removebg.png',
                 height: 120,
               ),
               const SizedBox(height: AppTheme.defaultPadding * 2),
@@ -96,8 +96,8 @@ class _NewRoutineState extends State<NewRoutine> {
                   ),
                   icon: Icon(
                     Icons.add,
-                    color: Colors.white,
-                    size: AppTheme.xlargeFontSize,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    size: AppTheme.xLargeFontSize,
                   ),
                   label: const Text(
                     'Add Exercise',

@@ -1,8 +1,8 @@
-import 'package:fitfuel/config/theme/theme_config.dart';
+import 'package:fitfuel/theme/theme_config.dart';
 import 'package:fitfuel/features/ai_trainer/ai_trainer.dart';
 import 'package:fitfuel/features/login/login.dart';
 import 'package:fitfuel/features/meals/meals.dart';
-import 'package:fitfuel/features/profile/profile.dart';
+// import 'package:fitfuel/features/profile/profile.dart';
 import 'package:fitfuel/features/signup/signup.dart';
 import 'package:fitfuel/features/workouts/workouts.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +44,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int selected = 0;
   final PageController controller = PageController();
 
-  final List<Widget> _pages = [AiTrainer(), Workouts(), Meals(), Profile()];
+  final List<Widget> _pages = [AiTrainer(), Workouts(), Meals(), Signup()];
 
   @override
   Widget build(BuildContext context) {
