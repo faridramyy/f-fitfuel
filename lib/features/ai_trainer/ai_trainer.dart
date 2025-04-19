@@ -1,4 +1,4 @@
-import 'package:fitfuel/theme/theme_config.dart';
+import 'package:fitfuel/theme/app_sizes.dart';
 import 'package:flutter/material.dart';
 
 class AiTrainer extends StatefulWidget {
@@ -15,8 +15,7 @@ class _AiTrainerState extends State<AiTrainer> {
   @override
   void initState() {
     super.initState();
-    // Simulate initial message from AI
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 1000), () {
       setState(() {
         _messages.add({
           'text': 'Hi, how are you? How can I help you?',
@@ -33,24 +32,52 @@ class _AiTrainerState extends State<AiTrainer> {
     setState(() {
       _messages.add({'text': text, 'isUser': true});
     });
+
     _controller.clear();
+
+    // Add typing animation
+    setState(() {
+      _messages.add({'text': 'Typing...', 'isUser': false, 'isTyping': true});
+    });
+
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {
+        _messages.removeWhere((msg) => msg['isTyping'] == true);
+        _messages.add({
+          'text': "Here's a smart AI reply to \"$text\" 😎",
+          'isUser': false,
+        });
+      });
+    });
   }
 
   Widget _buildMessage(Map<String, dynamic> message) {
+    bool isUser = message['isUser'] ?? false;
+    bool isTyping = message['isTyping'] ?? false;
+
     return Align(
-      alignment:
-          message['isUser'] ? Alignment.centerRight : Alignment.centerLeft,
+      alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-        padding: EdgeInsets.all(AppTheme.defaultPadding),
+        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+        padding: const EdgeInsets.all(AppSizes.padding),
         decoration: BoxDecoration(
           color:
-              message['isUser']
+              isUser
                   ? Theme.of(context).colorScheme.primary
                   : Theme.of(context).colorScheme.secondary,
-          borderRadius: BorderRadius.circular(AppTheme.defaultBorderRadius),
+          borderRadius: BorderRadius.circular(AppSizes.radius),
         ),
-        child: Text(message['text']),
+        child: Text(
+          isTyping ? 'Typing...' : message['text'],
+          style: TextStyle(
+            color:
+                isUser
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onSecondary,
+            fontWeight: FontWeight.w500,
+            fontStyle: isTyping ? FontStyle.italic : FontStyle.normal,
+          ),
+        ),
       ),
     );
   }
@@ -58,7 +85,7 @@ class _AiTrainerState extends State<AiTrainer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('AI Trainer Chat')),
+      appBar: AppBar(title: const Text('AI Trainer Chat')),
       body: Column(
         children: [
           Expanded(
@@ -67,17 +94,25 @@ class _AiTrainerState extends State<AiTrainer> {
               itemBuilder: (context, index) => _buildMessage(_messages[index]),
             ),
           ),
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: _controller,
-                  decoration: InputDecoration(hintText: 'Type a message...'),
-                  onSubmitted: (_) => _sendMessage(),
+          Padding(
+            padding: const EdgeInsets.all(AppSizes.paddingS),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    decoration: const InputDecoration(
+                      hintText: 'Type a message...',
+                    ),
+                    onSubmitted: (_) => _sendMessage(),
+                  ),
                 ),
-              ),
-              IconButton(icon: Icon(Icons.send), onPressed: _sendMessage),
-            ],
+                IconButton(
+                  icon: const Icon(Icons.send),
+                  onPressed: _sendMessage,
+                ),
+              ],
+            ),
           ),
         ],
       ),
