@@ -1,0 +1,31 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "fitfuel-a1fb5",
+          "appId": "1:432624716433:android:037dbd193825ab4056cd30",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "fitfuel-a1fb5",
+          "appId": "1:432624716433:ios:957b7f5b1396838856cd30",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "fitfuel-a1fb5",
+          "configurations": {
+            "android": "1:432624716433:android:037dbd193825ab4056cd30",
+            "ios": "1:432624716433:ios:957b7f5b1396838856cd30",
+            "web": "1:432624716433:web:66b5ca46d9f8ff9a56cd30"
+          }
+        }
+      }
+    }
+  }
+}
