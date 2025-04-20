@@ -1,4 +1,7 @@
 import 'package:fitfuel/features/auth/providers/auth_provider.dart';
+import 'package:fitfuel/features/profile/providers/theme_provider.dart';
+import 'package:fitfuel/features/profile/providers/language_provider.dart';
+import 'package:fitfuel/features/profile/screens/edit_profile.dart';
 import 'package:fitfuel/routes/app_router.dart';
 import 'package:fitfuel/theme/app_sizes.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +13,8 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final languageProvider = Provider.of<LanguageProvider>(context);
     final userName = authProvider.userName;
     final userEmail = authProvider.userEmail;
 
@@ -52,13 +57,46 @@ class Profile extends StatelessWidget {
             const SizedBox(height: AppSizes.gapLarge * 2),
             _buildProfileSection(
               context,
+              title: 'Dashboard',
+              items: [
+                _ProfileMenuItem(
+                  icon: Icons.dashboard_outlined,
+                  title: 'My Dashboard',
+                  onTap: () {
+                    // TODO: Implement dashboard navigation
+                  },
+                ),
+                _ProfileMenuItem(
+                  icon: Icons.fitness_center_outlined,
+                  title: 'Workout History',
+                  onTap: () {
+                    // TODO: Implement workout history
+                  },
+                ),
+                _ProfileMenuItem(
+                  icon: Icons.restaurant_menu_outlined,
+                  title: 'Meal History',
+                  onTap: () {
+                    // TODO: Implement meal history
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSizes.gapLarge),
+            _buildProfileSection(
+              context,
               title: 'Account Settings',
               items: [
                 _ProfileMenuItem(
                   icon: Icons.person_outline,
                   title: 'Edit Profile',
                   onTap: () {
-                    // TODO: Implement edit profile
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EditProfile(),
+                      ),
+                    );
                   },
                 ),
                 _ProfileMenuItem(
@@ -86,14 +124,85 @@ class Profile extends StatelessWidget {
                   icon: Icons.language_outlined,
                   title: 'Language',
                   onTap: () {
-                    // TODO: Implement language settings
+                    showDialog(
+                      context: context,
+                      builder:
+                          (context) => AlertDialog(
+                            title: const Text('Select Language'),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ListTile(
+                                  title: const Text('English'),
+                                  selected:
+                                      languageProvider.languageCode == 'en',
+                                  onTap: () {
+                                    languageProvider.setLanguage('en');
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                ListTile(
+                                  title: const Text('Spanish'),
+                                  selected:
+                                      languageProvider.languageCode == 'es',
+                                  onTap: () {
+                                    languageProvider.setLanguage('es');
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                    );
                   },
                 ),
                 _ProfileMenuItem(
                   icon: Icons.dark_mode_outlined,
                   title: 'Theme',
                   onTap: () {
-                    // TODO: Implement theme settings
+                    showDialog(
+                      context: context,
+                      builder:
+                          (context) => AlertDialog(
+                            title: const Text('Select Theme'),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ListTile(
+                                  title: const Text('System'),
+                                  selected:
+                                      themeProvider.themeMode ==
+                                      ThemeMode.system,
+                                  onTap: () {
+                                    themeProvider.setThemeMode(
+                                      ThemeMode.system,
+                                    );
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                ListTile(
+                                  title: const Text('Light'),
+                                  selected:
+                                      themeProvider.themeMode ==
+                                      ThemeMode.light,
+                                  onTap: () {
+                                    themeProvider.setThemeMode(ThemeMode.light);
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                ListTile(
+                                  title: const Text('Dark'),
+                                  selected:
+                                      themeProvider.themeMode == ThemeMode.dark,
+                                  onTap: () {
+                                    themeProvider.setThemeMode(ThemeMode.dark);
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                    );
                   },
                 ),
                 _ProfileMenuItem(

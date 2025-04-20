@@ -3,6 +3,8 @@ import 'package:fitfuel/firebase_options.dart';
 import 'package:fitfuel/theme/app_theme.dart';
 import 'package:fitfuel/routes/app_router.dart';
 import 'package:fitfuel/features/auth/providers/auth_provider.dart';
+import 'package:fitfuel/features/profile/providers/theme_provider.dart';
+import 'package:fitfuel/features/profile/providers/language_provider.dart';
 import 'package:fitfuel/features/onboarding/screens/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,33 +20,42 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => AuthProvider(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Fit Fuel',
-        home: Consumer<AuthProvider>(
-          builder: (context, authProvider, _) {
-            // Show loading indicator while checking auth state
-            if (!authProvider.isInitialized) {
-              return const Scaffold(
-                body: Center(child: CircularProgressIndicator()),
-              );
-            }
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => LanguageProvider()),
+      ],
+      child: Consumer2<ThemeProvider, LanguageProvider>(
+        builder: (context, themeProvider, languageProvider, _) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Fit Fuel',
+            home: Consumer<AuthProvider>(
+              builder: (context, authProvider, _) {
+                // Show loading indicator while checking auth state
+                if (!authProvider.isInitialized) {
+                  return const Scaffold(
+                    body: Center(child: CircularProgressIndicator()),
+                  );
+                }
 
-            // If user is authenticated, go to main navigation
-            if (authProvider.isAuthenticated) {
-              return const MainNavigationScreen();
-            }
+                // If user is authenticated, go to main navigation
+                if (authProvider.isAuthenticated) {
+                  return const MainNavigationScreen();
+                }
 
-            // Otherwise, show onboarding
-            return const Onboarding();
-          },
-        ),
-        onGenerateRoute: AppRoutes.generateRoute,
-        theme: AppTheme.light,
-        darkTheme: AppTheme.dark,
-        themeMode: ThemeMode.system,
+                // Otherwise, show onboarding
+                return const Onboarding();
+              },
+            ),
+            onGenerateRoute: AppRoutes.generateRoute,
+            theme: AppTheme.light,
+            darkTheme: AppTheme.dark,
+            themeMode: themeProvider.themeMode,
+            locale: Locale(languageProvider.languageCode),
+          );
+        },
       ),
     );
   }

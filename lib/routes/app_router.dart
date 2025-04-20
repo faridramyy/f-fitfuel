@@ -114,7 +114,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             backgroundColor: Theme.of(context).primaryColor,
           ),
           BottomBarItem(
-            icon: const Icon(Icons.food_bank_outlined),
+            icon: const Icon(Icons.restaurant_menu_outlined),
             title: const Text('Meals'),
             backgroundColor: Theme.of(context).primaryColor,
           ),
