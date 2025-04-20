@@ -4,6 +4,8 @@ class Exercise {
   final String equipment;
   final String gifUrl;
   final List<String> instructions;
+  final String target;
+  final List<String> secondaryMuscles;
 
   Exercise({
     required this.gifUrl,
@@ -11,6 +13,8 @@ class Exercise {
     required this.equipment,
     required this.bodyPart,
     required this.instructions,
+    required this.target,
+    required this.secondaryMuscles,
   });
 
   factory Exercise.fromJson(Map<String, dynamic> json) {
@@ -20,6 +24,8 @@ class Exercise {
       equipment: json['equipment'],
       gifUrl: json['gifUrl'],
       instructions: List<String>.from(json['instructions']),
+      target: json['target'] ?? '',
+      secondaryMuscles: List<String>.from(json['secondaryMuscles'] ?? []),
     );
   }
 }
