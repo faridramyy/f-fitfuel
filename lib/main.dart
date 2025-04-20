@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fit Fuel',
-      initialRoute: AppRoutes.mainNav,
+      initialRoute: AppRoutes.onboarding,
       onGenerateRoute: AppRoutes.generateRoute,
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,

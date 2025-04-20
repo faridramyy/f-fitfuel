@@ -1,4 +1,5 @@
 import 'package:fitfuel/routes/app_router.dart';
+import 'package:fitfuel/theme/app_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
 import 'package:sign_in_button/sign_in_button.dart';
@@ -44,7 +45,7 @@ class Onboarding extends StatelessWidget {
                     _getPageText(index),
                     textAlign: TextAlign.start,
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: AppSizes.fontXL,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
@@ -60,7 +61,6 @@ class Onboarding extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                       ),
-                      const SizedBox(height: 10),
                       SignInButton(
                         Buttons.facebook,
                         text: "Sign up with Facebook",
@@ -69,7 +69,7 @@ class Onboarding extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                       ),
-                      const SizedBox(height: 10),
+
                       SignInButton(
                         Buttons.apple,
                         text: "Sign up with Apple",
@@ -78,10 +78,21 @@ class Onboarding extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                       ),
-                      const SizedBox(height: 10),
+
                       SignInButton(
                         Buttons.email,
                         text: "Sign up with Email",
+                        onPressed: () {
+                          Navigator.pushNamed(context, AppRoutes.signup);
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                      ),
+
+                      SignInButton(
+                        Buttons.anonymous,
+                        text: "Sign up as a Guest",
                         onPressed: () {
                           Navigator.pushNamed(context, AppRoutes.signup);
                         },
