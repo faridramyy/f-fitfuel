@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignupController {
@@ -35,6 +36,20 @@ class SignupController {
     if (value == null || value.isEmpty) return 'Please confirm your password';
     if (value != passwordController.text) return 'Passwords do not match';
     return null;
+  }
+
+  Future<String?> handleSignup() async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      return null; // Success
+    } on FirebaseAuthException catch (e) {
+      return e.message; // Return error message
+    } catch (e) {
+      return 'An unknown error occurred';
+    }
   }
 
   void dispose() {
