@@ -1,7 +1,7 @@
 import 'package:fitfuel/features/ai_trainer/ai_trainer.dart';
 import 'package:fitfuel/features/auth/screens/forgot_password.dart';
 import 'package:fitfuel/features/meals/meals.dart';
-import 'package:fitfuel/features/onboarding/onboarding.dart';
+import 'package:fitfuel/features/onboarding/screens/onboarding.dart';
 import 'package:fitfuel/features/auth/screens/signup.dart';
 import 'package:fitfuel/features/auth/screens/login.dart';
 import 'package:fitfuel/features/workouts/screens/workouts.dart';

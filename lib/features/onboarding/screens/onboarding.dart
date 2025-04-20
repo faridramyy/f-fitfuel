@@ -1,3 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitfuel/common/widgets/app_snackbar.dart.dart';
+import 'package:fitfuel/features/onboarding/controllers/onboarding.dart';
 import 'package:fitfuel/routes/app_router.dart';
 import 'package:fitfuel/theme/app_sizes.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +12,8 @@ class Onboarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = OnboardingController();
+
     return Scaffold(
       body: OnBoardingSlider(
         pageBackgroundColor: Colors.black,
@@ -93,8 +98,36 @@ class Onboarding extends StatelessWidget {
                       SignInButton(
                         Buttons.anonymous,
                         text: "Sign up as a Guest",
-                        onPressed: () {
-                          Navigator.pushNamed(context, AppRoutes.signup);
+                        onPressed: () async {
+                          try {
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder:
+                                  (context) => const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                            );
+                            var user = await controller.signInAnonymously();
+                            Navigator.of(context).pop();
+                            if (user != null) {
+                              AppSnackbar.show(
+                                context,
+                                'Signed in as guest',
+                                type: SnackType.success,
+                              );
+                              Navigator.pushReplacementNamed(
+                                context,
+                                AppRoutes.mainNav,
+                              );
+                            }
+                          } on FirebaseAuthException catch (e) {
+                            AppSnackbar.show(
+                              context,
+                              e.message!,
+                              type: SnackType.success,
+                            );
+                          }
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
