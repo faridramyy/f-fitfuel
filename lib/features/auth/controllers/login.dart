@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginController {
@@ -25,5 +26,19 @@ class LoginController {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+  }
+
+  Future<String?> handleSignIn() async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      return null; // Success
+    } on FirebaseAuthException catch (e) {
+      return e.message; // Return error message
+    } catch (e) {
+      return 'An unknown error occurred';
+    }
   }
 }

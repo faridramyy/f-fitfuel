@@ -133,7 +133,7 @@ class _SignupState extends State<Signup> {
                       AppSnackbar.show(
                         context,
                         errorMessage,
-                        type: SnackType.success,
+                        type: SnackType.error,
                       );
                     }
                   },

@@ -1,3 +1,4 @@
+import 'package:fitfuel/common/widgets/app_snackbar.dart.dart';
 import 'package:fitfuel/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:fitfuel/features/auth/controllers/login.dart';
@@ -84,9 +85,42 @@ class _LoginState extends State<Login> {
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
-                  onPressed: () {
-                    if (controller.formKey.currentState!.validate()) {}
+                  onPressed: () async {
+                    if (!controller.formKey.currentState!.validate()) {
+                      return;
+                    }
+
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder:
+                          (context) =>
+                              const Center(child: CircularProgressIndicator()),
+                    );
+
+                    final errorMessage = await controller.handleSignIn();
+                    Navigator.of(context).pop();
+
+                    if (errorMessage == null) {
+                      AppSnackbar.show(
+                        context,
+                        'Signin successful!',
+                        type: SnackType.success,
+                      );
+
+                      Navigator.pushReplacementNamed(
+                        context,
+                        AppRoutes.mainNav,
+                      );
+                    } else {
+                      AppSnackbar.show(
+                        context,
+                        errorMessage,
+                        type: SnackType.error,
+                      );
+                    }
                   },
+
                   child: const Text("Login"),
                 ),
               ),
