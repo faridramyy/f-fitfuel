@@ -1,3 +1,4 @@
+import 'package:fitfuel/common/widgets/app_snackbar.dart.dart';
 import 'package:flutter/material.dart';
 import 'package:fitfuel/features/auth/controllers/forgot_password.dart';
 import 'package:fitfuel/theme/app_sizes.dart';
@@ -57,11 +58,38 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
-                  onPressed: () {
-                    if (controller.formKey.currentState!.validate()) {
-                      // Send password reset logic
+                  onPressed: () async {
+                    if (!controller.formKey.currentState!.validate()) {
+                      return;
+                    }
+
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder:
+                          (context) =>
+                              const Center(child: CircularProgressIndicator()),
+                    );
+
+                    final errorMessage =
+                        await controller.handleForgotPassword();
+                    Navigator.of(context).pop();
+
+                    if (errorMessage == null) {
+                      AppSnackbar.show(
+                        context,
+                        'Email sent successfully',
+                        type: SnackType.success,
+                      );
+                    } else {
+                      AppSnackbar.show(
+                        context,
+                        errorMessage,
+                        type: SnackType.error,
+                      );
                     }
                   },
+
                   child: const Text("Send Reset Link"),
                 ),
               ),

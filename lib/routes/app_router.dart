@@ -4,6 +4,7 @@ import 'package:fitfuel/features/meals/meals.dart';
 import 'package:fitfuel/features/onboarding/screens/onboarding.dart';
 import 'package:fitfuel/features/auth/screens/signup.dart';
 import 'package:fitfuel/features/auth/screens/login.dart';
+import 'package:fitfuel/features/profile/profile.dart';
 import 'package:fitfuel/features/workouts/screens/workouts.dart';
 import 'package:flutter/material.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
@@ -48,10 +49,22 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int selected = 0;
-  final PageController controller = PageController();
+  int selected = 1; // Start on second page
+  late final PageController controller;
 
-  final List<Widget> _pages = [AiTrainer(), Workouts(), Meals(), Signup()];
+  final List<Widget> _pages = [AiTrainer(), Workouts(), Meals(), Profile()];
+
+  @override
+  void initState() {
+    super.initState();
+    controller = PageController(initialPage: selected);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
