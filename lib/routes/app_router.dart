@@ -6,7 +6,9 @@ import 'package:fitfuel/features/auth/screens/signup.dart';
 import 'package:fitfuel/features/auth/screens/login.dart';
 import 'package:fitfuel/features/profile/profile.dart';
 import 'package:fitfuel/features/workouts/screens/workouts.dart';
+import 'package:fitfuel/features/auth/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
 class AppRoutes {
@@ -17,25 +19,44 @@ class AppRoutes {
   static const String mainNav = '/home';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    return MaterialPageRoute(
+      builder: (context) {
+        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+        final isAuthenticated = authProvider.isAuthenticated;
+
+        // Public routes that don't require authentication
+        if (settings.name == onboarding ||
+            settings.name == login ||
+            settings.name == signup ||
+            settings.name == forgotPassword) {
+          return _buildRoute(settings);
+        }
+
+        // Protected routes that require authentication
+        if (!isAuthenticated) {
+          return const Login();
+        }
+
+        return _buildRoute(settings);
+      },
+    );
+  }
+
+  static Widget _buildRoute(RouteSettings settings) {
     switch (settings.name) {
       case onboarding:
-        return MaterialPageRoute(builder: (_) => const Onboarding());
+        return const Onboarding();
       case login:
-        return MaterialPageRoute(builder: (_) => const Login());
+        return const Login();
       case signup:
-        return MaterialPageRoute(builder: (_) => const Signup());
+        return const Signup();
       case forgotPassword:
-        return MaterialPageRoute(builder: (_) => const ForgotPassword());
+        return const ForgotPassword();
       case mainNav:
-        return MaterialPageRoute(builder: (_) => const MainNavigationScreen());
+        return const MainNavigationScreen();
       default:
-        return MaterialPageRoute(
-          builder:
-              (_) => Scaffold(
-                body: Center(
-                  child: Text('No route defined for ${settings.name}'),
-                ),
-              ),
+        return Scaffold(
+          body: Center(child: Text('No route defined for ${settings.name}')),
         );
     }
   }
@@ -49,7 +70,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int selected = 1; // Start on second page
+  int selected = 1;
   late final PageController controller;
 
   final List<Widget> _pages = [AiTrainer(), Workouts(), Meals(), Profile()];
@@ -71,7 +92,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     return Scaffold(
       body: PageView(
         controller: controller,
-        physics: const NeverScrollableScrollPhysics(), // Disable swipe
+        physics: const NeverScrollableScrollPhysics(),
         children: _pages,
       ),
       bottomNavigationBar: StylishBottomBar(
