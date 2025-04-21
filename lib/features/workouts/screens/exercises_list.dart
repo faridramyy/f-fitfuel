@@ -84,6 +84,77 @@ class _ExercisesListState extends State<ExercisesList> {
                         ],
                       ),
                       const SizedBox(height: AppSizes.padding),
+                      // Selected Filters Section
+                      if (selectedBodyParts.isNotEmpty ||
+                          selectedEquipment.isNotEmpty ||
+                          selectedTargets.isNotEmpty ||
+                          selectedSecondaryMuscles.isNotEmpty) ...[
+                        const Text(
+                          'Selected Filters',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: AppSizes.padding / 2),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: [
+                            ...selectedBodyParts.map(
+                              (part) => Chip(
+                                label: Text(part),
+                                deleteIcon: const Icon(Icons.close, size: 18),
+                                onDeleted: () {
+                                  setState(() {
+                                    selectedBodyParts.remove(part);
+                                  });
+                                  this.setState(() {});
+                                },
+                              ),
+                            ),
+                            ...selectedEquipment.map(
+                              (equip) => Chip(
+                                label: Text(equip),
+                                deleteIcon: const Icon(Icons.close, size: 18),
+                                onDeleted: () {
+                                  setState(() {
+                                    selectedEquipment.remove(equip);
+                                  });
+                                  this.setState(() {});
+                                },
+                              ),
+                            ),
+                            ...selectedTargets.map(
+                              (target) => Chip(
+                                label: Text(target),
+                                deleteIcon: const Icon(Icons.close, size: 18),
+                                onDeleted: () {
+                                  setState(() {
+                                    selectedTargets.remove(target);
+                                  });
+                                  this.setState(() {});
+                                },
+                              ),
+                            ),
+                            ...selectedSecondaryMuscles.map(
+                              (muscle) => Chip(
+                                label: Text(muscle),
+                                deleteIcon: const Icon(Icons.close, size: 18),
+                                onDeleted: () {
+                                  setState(() {
+                                    selectedSecondaryMuscles.remove(muscle);
+                                  });
+                                  this.setState(() {});
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSizes.padding),
+                        const Divider(),
+                        const SizedBox(height: AppSizes.padding),
+                      ],
                       Expanded(
                         child: SingleChildScrollView(
                           child: Column(
