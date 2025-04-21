@@ -245,6 +245,22 @@ class _ExercisesListState extends State<ExercisesList> {
     Set<String> selectedValues,
     Function(String, bool) onChanged,
   ) {
+    final filterChips = Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children:
+          options.map((option) {
+            final isSelected = selectedValues.contains(option);
+            return FilterChip(
+              label: Text(option),
+              selected: isSelected,
+              onSelected: (selected) {
+                onChanged(option, selected);
+              },
+            );
+          }).toList(),
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -253,21 +269,13 @@ class _ExercisesListState extends State<ExercisesList> {
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: AppSizes.padding / 2),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children:
-              options.map((option) {
-                final isSelected = selectedValues.contains(option);
-                return FilterChip(
-                  label: Text(option),
-                  selected: isSelected,
-                  onSelected: (selected) {
-                    onChanged(option, selected);
-                  },
-                );
-              }).toList(),
-        ),
+        if (title == 'Body Part')
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: filterChips,
+          )
+        else
+          filterChips,
         const SizedBox(height: AppSizes.padding),
       ],
     );
@@ -374,9 +382,6 @@ class _ExercisesListState extends State<ExercisesList> {
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.filter_list),
                   onPressed: _showFilterBottomSheet,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(AppSizes.radius),
                 ),
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: AppSizes.padding,
