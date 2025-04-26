@@ -1,8 +1,7 @@
 import 'package:fitfuel/features/ai_trainer/service/gemini.dart';
 import 'package:fitfuel/theme/app_sizes.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class AiTrainer extends StatefulWidget {
   const AiTrainer({super.key});
@@ -79,17 +78,46 @@ class _AiTrainerState extends State<AiTrainer> {
                   : Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(AppSizes.radius),
         ),
-        child: Text(
-          isTyping ? 'Typing...' : message['text'],
-          style: TextStyle(
-            color:
-                isUser
-                    ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).colorScheme.onSecondary,
-            fontWeight: FontWeight.w500,
-            fontStyle: isTyping ? FontStyle.italic : FontStyle.normal,
-          ),
-        ),
+        child:
+            isTyping
+                ? Text(
+                  'Typing...',
+                  style: TextStyle(
+                    color:
+                        isUser
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Theme.of(context).colorScheme.onSecondary,
+                    fontStyle: FontStyle.italic,
+                  ),
+                )
+                : MarkdownBody(
+                  data: message['text'],
+                  styleSheet: MarkdownStyleSheet(
+                    p: TextStyle(
+                      color:
+                          isUser
+                              ? Theme.of(context).colorScheme.onPrimary
+                              : Theme.of(context).colorScheme.onSecondary,
+                    ),
+                    h2: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                    h3: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                    h4: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                    strong: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
       ),
     );
   }
