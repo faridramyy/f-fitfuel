@@ -38,6 +38,13 @@ class _NewRoutineState extends State<NewRoutine> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Routine Title',
+                border: InputBorder.none,
+              ),
+            ),
+            const SizedBox(height: AppSizes.gapLarge),
             Image.asset(
               Theme.of(context).brightness == Brightness.dark
                   ? 'assets/images/app_logo_dark_removebg.png'

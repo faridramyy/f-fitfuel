@@ -1,5 +1,8 @@
+import 'package:fitfuel/features/ai_trainer/service/gemini.dart';
 import 'package:fitfuel/theme/app_sizes.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class AiTrainer extends StatefulWidget {
   const AiTrainer({super.key});
@@ -11,6 +14,8 @@ class AiTrainer extends StatefulWidget {
 class _AiTrainerState extends State<AiTrainer> {
   final List<Map<String, dynamic>> _messages = [];
   final TextEditingController _controller = TextEditingController();
+  final GeminiService geminiService =
+      GeminiService(); // <-- Here we create the GeminiService
 
   @override
   void initState() {
@@ -25,7 +30,7 @@ class _AiTrainerState extends State<AiTrainer> {
     });
   }
 
-  void _sendMessage() {
+  void _sendMessage() async {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
 
@@ -40,15 +45,22 @@ class _AiTrainerState extends State<AiTrainer> {
       _messages.add({'text': 'Typing...', 'isUser': false, 'isTyping': true});
     });
 
-    Future.delayed(const Duration(seconds: 1), () {
+    try {
+      String aiResponse = await geminiService.generateContent(text);
+
+      setState(() {
+        _messages.removeWhere((msg) => msg['isTyping'] == true);
+        _messages.add({'text': aiResponse, 'isUser': false});
+      });
+    } catch (e) {
       setState(() {
         _messages.removeWhere((msg) => msg['isTyping'] == true);
         _messages.add({
-          'text': "Here's a smart AI reply to \"$text\" 😎",
+          'text': 'Error generating response. 😞',
           'isUser': false,
         });
       });
-    });
+    }
   }
 
   Widget _buildMessage(Map<String, dynamic> message) {
@@ -80,6 +92,12 @@ class _AiTrainerState extends State<AiTrainer> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override

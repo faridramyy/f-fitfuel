@@ -73,6 +73,14 @@ class ExerciseDetails extends StatelessWidget {
                             'Equipment: ${exercise.equipment}',
                             style: const TextStyle(color: Colors.grey),
                           ),
+                          Text(
+                            'Target Muscle: ${exercise.target}',
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                          Text(
+                            'Secondary Muscles: ${exercise.secondaryMuscles}',
+                            style: const TextStyle(color: Colors.grey),
+                          ),
                         ],
                       ),
                     ),
